@@ -1,3 +1,4 @@
 # IoTkWhMall
 
-mohon kritik dan saran"nya
+untuk coba lokal => firebase serve
+untuk langsung hosting => firebase deploy
