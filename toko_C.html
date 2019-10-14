@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - My Mall Energy</title>
+  <script sc="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"></script>
+   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="template-admin/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="template-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+ <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-database.js"></script> 
+
+<script>
+  // Initialize Firebase
+   var firebaseConfig = {
+    apiKey: "AIzaSyBSfbpE189L3YPj_axq1MhD7LhQz2abO5U",
+    authDomain: "kwhmall.firebaseapp.com",
+    databaseURL: "https://kwhmall.firebaseio.com",
+    projectId: "kwhmall",
+    storageBucket: "kwhmall.appspot.com",
+    messagingSenderId: "137689429725",
+    appId: "1:137689429725:web:3c126c57dda47a9c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+</head>
+
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <h1 class="h3 mb-2 text-gray-800">My Mall Energy</h1>
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+             <button class="btn btn-primary" onclick="logout()">Logout</button>
+            </li>
+          </ul>
+        </nav>
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <p>Anda sedang memantau penggunaan listrik Pelanggan Toko C</p>
+
+            <!-- Content Row -->
+            <div class="row">
+              <!-- Area Chart -->
+              <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik Penggunaan Listrik Hari Ini</h6>
+                  </div>
+                  <!--grafik -->
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="ChartToday"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Area Chart -->
+              <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik Penggunaan Listrik Bulan Ini</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="ChartMonth"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+<!-- Data Penggunaan Listrik Hari Ini -->
+<div class="col-xl-6 col-lg-7">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Data Penggunaan Listrik</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="table_detail" width="100%" cellspacing="0">
+          <thead class="text-primary">
+            <th>Nomor</th>
+            <th>Tanggal</th>
+            <th>Waktu</th>
+            <th>Watt</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data Penggunaan Listrik Bulan Ini -->
+<div class="col-xl-6 col-lg-7">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Data Penggunaan Listrik</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="table_detail" width="100%" cellspacing="0">
+          <thead class="text-primary">
+            <th>Nomor</th>
+            <th>Tanggal</th>
+            <th>Waktu</th>
+            <th>Watt</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row justify-content-center">
+    <div class="p-5">
+    <a href="home.html" class="btn btn-primary btn-user">Home Admin</a>
+  </div>
+
+<script>
+
+var ctx = document.getElementById("ChartToday");
+var ChartToday = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+        datasets: [{
+            label: 'kWh',
+            data: [7, 30, 3, 5, 2, 5, 3, 6, 10, 3, 2, 5, 20, 5, 16, 8, 12, 7, 11, 20, 18, 4, 10, 2],
+            
+            borderColor: [
+                'rgba(0,160,133,1.0)',
+            ],
+            borderWidth: 1
+        }]
+    }
+});
+
+var ctx = document.getElementById("ChartMonth");
+var ChartMonth = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"],
+        datasets: [{
+            label: 'kWh',
+            data: [30,55,16,71,68,54,85],
+            
+            borderColor: [
+                'rgba(205,92,92,1.0)',
+            ],
+            borderWidth: 1
+        }]
+    }
+});
+
+
+//referensi database
+var f_database = firebase.database();
+
+f_database.ref().on("value", function(snapshot){
+  var waktu = snapshot.child("pukul").val();
+  var tanggal  = snapshot.child("tanggal").val();
+  var total = snapshot.child("total").val();
+
+});
+
+//id = table detail
+var detail_rowIndex = 1;
+var detail_table = document.getElementById("table_detail");
+var detail_ref = f_database.ref("Data");
+detail_ref.once("value", function(snapshot){
+  snapshot.forEach(function(childSnapshot){
+    var detail = childSnapshot.val();
+    
+    var row = detail_table.insertRow(detail_rowIndex);
+    var detail_nomor = row.insertCell(0);
+    var detail_tanggal = row.insertCell(1);
+    var detail_waktu = row.insertCell(2);
+    var detail_jumlah = row.insertCell(3);
+
+    detail_nomor  .appendChild(document.createTextNode(detail_rowIndex));
+        detail_tanggal  .appendChild(document.createTextNode(detail.tanggal));
+        detail_waktu  .appendChild(document.createTextNode(detail.pukul+" WIB"));
+        detail_jumlah .appendChild(document.createTextNode(detail.jumlah+" kWh"));
+      detail_rowIndex = detail_rowIndex + 1;
+  });
+});
+
+function logout()
+  {
+    firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    window.location="index.html";
+    }).catch(function(error) {
+      // An error happened.
+      window.alert("Error: " + errorMessage);
+    });
+  }  
+
+</script>
+
+<!-- Bootstrap core JavaScript-->
+  <script src="template-admin/vendor/jquery/jquery.min.js"></script>
+  <script src="template-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="template-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="template-admin/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="template-admin/vendor/chart.js/Chart.min.js"></script>
+  <script src="template-admin/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="template-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="template-admin/js/demo/chart-area-demo.js"></script>
+  <script src="template-admin/js/demo/datatables-demo.js"></script>
+
+</body>
+</html>

@@ -2,15 +2,31 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Dashboard - My Mall Energy</title>
-  <script sc="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"></script>
+  <title>Welcome Admin - My Mall Energy</title>
+<script sc="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"></script>
    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="template-admin/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="template-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<style>
+	table, td, th{
+		border:0px solid #ddd;
+		text-align:center;
+	}
+	table{
+		border-collapse: collapse;
+		width: 100%;
+	}
+	th,td{
+		padding: 15px;
+	}
+	.disabled {
+	  opacity: 0.6;
+	  cursor: not-allowed;
+	}
+</style>
 
- 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
  <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase.js"></script>
@@ -60,40 +76,55 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
           <!-- Main Content -->
           <div id="content">
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-            <!-- Page Heading -->
-            <p>Gunakan listrik dengan bijak!</p>
-                  
              <!-- Content Row -->
              <div class="row">
+              <div class="col-xl-10 col-lg-10">
 
-              <div class="col-xl-10 col-lg-8">
-
-
-  <div class="text-center">
-<!-- DataTales Example -->
- <h3 class="justify-content-center">Penggunaan Listrik Anda Saat Ini</h3>
-  <div class="form-group">
-    <output class="form-control">020497 kWh</output> </div>
-  <div class="form-group">
-    <label> Estimasi Pemakaian : </label>
-    <input class="form" placeholder="Rp." id="estimasi"><br>
-    <input type="submit" class="btn btn-primary btn-user" value="Save">
-  </div><br>
-  <a href ="hari_ini.html" class="btn btn-primary btn-user">Hari Ini</a>
-  <a  href="kemaren.html" class="btn btn-primary btn-user">Kemarin</a>
-  <a href="bulan_ini.html" class="btn btn-primary btn-user">Bulan Ini</a>
-  <a href="bulan_lalu.html" class="btn btn-primary btn-user">Bulan Lalu</a>
+<div class="text-left">
+<p class="p-5">Selamat datang Petugas, Silahkan periksa penggunaan listrik Pelanggan</p>
+<table class="p-5">
+<tr>
+	<th><a href="#" class="btn btn-primary btn-user disabled py-2 px-4">Toko<br>A</a></th>
+	<th><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>B</a></th>
+    <th><a href="toko_C.html" class="btn btn-primary btn-user py-2 px-5">Toko<br>C</a></th>
+    <th><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>D</a></th>
+    <th><a href="#" class="btn btn-primary btn-user disabled py-2 px-4">Toko<br>E</a></th>
+</tr>
+<tr>
+    <td><a href="toko_F.html" class="btn btn-primary btn-user py-5 px-3">Toko<br>F</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>G</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-5">Toko<br>H</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>I</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-5 px-3">Toko<br>J</a></td>
+</tr>
+<tr>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-5 px-3">Toko<br>K</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>L</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>M</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>N</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-5 px-3">Toko<br>O</a></td>
+</tr>
+<tr>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-5 px-3">Toko<br>P</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>Q</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-5">Toko<br>R</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>S</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-5 px-3">Toko<br>T</a></td>
+</tr>
+<tr>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-4">Toko<br>U</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>V</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-5">Toko<br>W</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-3">Toko<br>X</a></td>
+    <td><a href="#" class="btn btn-primary btn-user disabled py-2 px-4">Toko<br>Y</a></td>
+ </tr>
 </div>
 </div>
 <script>
-  function logout()
+function logout()
   {
     firebase.auth().signOut().then(function() {
     // Sign-out successful.
@@ -104,7 +135,6 @@
     });
   }  
 
- 
 </script>
 
 <!-- Bootstrap core JavaScript-->
@@ -114,17 +144,8 @@
   <!-- Core plugin JavaScript-->
   <script src="template-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="template-admin/js/sb-admin-2.min.js"></script>
+ </script>
 
-  <!-- Page level plugins -->
-  <script src="template-admin/vendor/chart.js/Chart.min.js"></script>
-  <script src="template-admin/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="template-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="template-admin/js/demo/chart-area-demo.js"></script>
-  <script src="template-admin/js/demo/datatables-demo.js"></script>
-
+  
 </body>
 </html>

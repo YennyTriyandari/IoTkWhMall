@@ -1,0 +1,85 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Barlow:500');
+	body {
+ 		text-align: center;
+	}
+</style>
+
+	<title>Grafik Penggunaan Listrik</title>
+	<script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+	<!-- including firebase -->
+	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase.js"></script>
+ 	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-auth.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-database.js"></script> 
+
+  	<script>
+  	// Initialize Firebase
+  	var firebaseConfig = {
+    	apiKey: "AIzaSyBSfbpE189L3YPj_axq1MhD7LhQz2abO5U",
+    	authDomain: "kwhmall.firebaseapp.com",
+    	databaseURL: "https://kwhmall.firebaseio.com",
+    	projectId: "kwhmall",
+    	storageBucket: "kwhmall.appspot.com",
+    	messagingSenderId: "137689429725",
+    	appId: "1:137689429725:web:3c126c57dda47a9c"
+  	};
+  	// Initialize Firebase
+  	firebase.initializeApp(firebaseConfig);
+</script>
+  	
+  	<script>
+  		window.addEventListener("load",getData(genFunction));
+
+  		function getData(callbackIN){
+  			var ref = firebase.database().ref("grafikminggu");
+  			ref.on('value').then(function(snapshot){
+  				callbackIN(Snapshot.val())
+  			});
+  		}
+
+  		function genFunction(grafikminggu){
+  			var cdata = [];
+  			var len = data.length;
+  			for(var i=1; i<len; i++){
+  				cdata.push({
+  					label: data[i]['label'],
+  					value: data[i]['value']
+  				});
+  			}
+
+  			var firebaseChart = new fusionCharts({
+  				type: 'line',
+  				renderAt: 'chart-container',
+  				width: '650',
+  				height: '400',
+  				dataFormat:'json',
+  				dataSource:{
+  					"chart":{
+  						"caption": "Grafik Penggunaan Listrik",
+  						"captionFontSize": "20",
+  						"captionPadding": "15",
+  						"captionFontColor": "#8c8c8c",
+  						"baseFontSize": "14"
+
+
+  					},
+  					"grafikminggu":cdata
+  				}
+  			});
+  			firebaseChart.render();
+  		}
+  	</script>
+</head>
+<body>
+	<div id="chart-container">
+		<svg width="90px" height="90px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
+			<circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}"
+</body>
+</html>

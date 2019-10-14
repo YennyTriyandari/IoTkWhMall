@@ -75,25 +75,102 @@
 
               <div class="col-xl-10 col-lg-8">
 
+              <!-- Area Chart -->
+              <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Grafik Penggunaan Listrik Bulan Ini</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="myChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <div class="container-fluid">
 
-  <div class="text-center">
 <!-- DataTales Example -->
- <h3 class="justify-content-center">Penggunaan Listrik Anda Saat Ini</h3>
-  <div class="form-group">
-    <output class="form-control">020497 kWh</output> </div>
-  <div class="form-group">
-    <label> Estimasi Pemakaian : </label>
-    <input class="form" placeholder="Rp." id="estimasi"><br>
-    <input type="submit" class="btn btn-primary btn-user" value="Save">
-  </div><br>
-  <a href ="hari_ini.html" class="btn btn-primary btn-user">Hari Ini</a>
-  <a  href="kemaren.html" class="btn btn-primary btn-user">Kemarin</a>
-  <a href="bulan_ini.html" class="btn btn-primary btn-user">Bulan Ini</a>
-  <a href="bulan_lalu.html" class="btn btn-primary btn-user">Bulan Lalu</a>
-</div>
-</div>
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Data Penggunaan Listrik</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="table_detail" width="100%" cellspacing="0">
+                  <thead class="text-primary">
+                      <th>Nomor</th>
+                      <th>Tanggal</th>
+                      <th>Waktu</th>
+                      <th>Watt</th>
+                      <th>Keterangan</th>
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+<div class="row justify-content-center">
+
+<div class="p-5">
+  <a href="main.html" class="btn btn-primary btn-user">Kembali</a>
+
 <script>
-  function logout()
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Minggu-1", "Minggu-2", "Minggu-3", "Minggu-4"],
+        datasets: [{
+            label: 'kWh',
+            data: [7, 30, 3, 5],
+            
+            borderColor: [
+                'rgba(0,160,133,1.0)',
+            ],
+            borderWidth: 1
+        }]
+    }
+});
+
+//referensi database
+var f_database = firebase.database();
+
+f_database.ref().on("value", function(snapshot){
+  var waktu = snapshot.child("pukul").val();
+  var tanggal  = snapshot.child("tanggal").val();
+  var total = snapshot.child("total").val();
+
+});
+
+//id = table detail
+var detail_rowIndex = 1;
+var detail_table = document.getElementById("table_detail");
+var detail_ref = f_database.ref("Data");
+detail_ref.once("value", function(snapshot){
+  snapshot.forEach(function(childSnapshot){
+    var detail = childSnapshot.val();
+    
+    var row = detail_table.insertRow(detail_rowIndex);
+    var detail_nomor = row.insertCell(0);
+    var detail_tanggal = row.insertCell(1);
+    var detail_waktu = row.insertCell(2);
+    var detail_jumlah = row.insertCell(3);
+    var keterangan = row.insertCell(4);
+
+    detail_nomor  .appendChild(document.createTextNode(detail_rowIndex));
+        detail_tanggal  .appendChild(document.createTextNode(detail.tanggal));
+        detail_waktu  .appendChild(document.createTextNode(detail.pukul+" WIB"));
+        detail_jumlah .appendChild(document.createTextNode(detail.jumlah+" kWh"));
+        keterangan .appendChild(document.createTextNode(keterangan));
+        
+      detail_rowIndex = detail_rowIndex + 1;
+  });
+});
+
+function logout()
   {
     firebase.auth().signOut().then(function() {
     // Sign-out successful.
@@ -104,7 +181,6 @@
     });
   }  
 
- 
 </script>
 
 <!-- Bootstrap core JavaScript-->
